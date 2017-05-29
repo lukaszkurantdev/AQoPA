@@ -7,6 +7,37 @@ import copy
 from aqopa.model import CommunicationInstruction, TupleExpression, ComparisonExpression, COMPARISON_TYPE_EQUAL, \
     CallFunctionExpression, AlgWhile, AlgReturn, AlgIf, AlgAssignment, AlgCallFunction
 from aqopa.simulator.error import RuntimeException
+from aqopa.simulator.state import HookExecutor, ExecutionResult
+
+
+class CommunicationHookExecutor(HookExecutor):
+
+    def execute_instruction(self, context, **kwargs):
+        """ Overriden """
+        consumes_cpu = False
+        custom_index_management = False
+        finish_instruction_execution = False
+
+        exec_kwargs = kwargs
+        for h in self._hooks:
+            result = h.execute(context, **exec_kwargs)
+            if result:
+                if result.consumes_cpu:
+                    consumes_cpu = True
+                if result.custom_index_management:
+                    custom_index_management = True
+                if result.finish_instruction_execution:
+                    finish_instruction_execution = True
+                if result.result_kwargs is not None:
+                    exec_kwargs.update(result.result_kwargs)
+
+        return ExecutionResult(consumes_cpu, custom_index_management,
+                               finish_instruction_execution,
+                               result_kwargs=exec_kwargs)
+
+    def can_execute_instruction(self, instruction):
+        """ Overriden """
+        return isinstance(instruction, CommunicationInstruction)
 
 
 class ChannelMessage():
@@ -238,7 +269,7 @@ class Channel():
                 existing_request.start_waiting()
 
         # Check if request can be bound with expressions
-        self._bind_messages_with_receivers()
+        return self._bind_messages_with_receivers()
 
     def get_filtered_requests(self, message, router):
         """
@@ -295,12 +326,13 @@ class Channel():
             self._buffers[request.receiver].append(message)
 
         # Check if request can be bound with expressions
-        self._bind_messages_with_receivers()
+        return self._bind_messages_with_receivers()
 
     def _bind_messages_with_receivers(self):
         """
         Assign messages from buffers to requests.
         """
+        fulfilled_requests = []
         # Update all requests
         for request in self._waiting_requests:
             # Add messages from buffer to request
@@ -316,6 +348,7 @@ class Channel():
             if request.ready_to_fulfill():
                 # Fulfill it
                 request.fulfill()
+                fulfilled_requests.append(request)
                 # print "Binded: ", unicode(request.instruction), unicode(request.receiver)
 
                 # If channel is synchronous, delete the request - a new one will be created
@@ -336,6 +369,8 @@ class Channel():
                     self._dropped_messages_cnt += len(self._buffers[i]) - self._buffer_size
                     for j in range(self._buffer_size, len(self._buffers[i])):
                         del self._buffers[i][j]
+
+        return fulfilled_requests
 
     def add_left_messages_to_dropped(self):
         """

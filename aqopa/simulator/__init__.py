@@ -3,10 +3,11 @@ Created on 07-05-2013
 
 @author: Damian Rusinek <damian.rusinek@gmail.com>
 '''
+from aqopa.simulator.communication import CommunicationHookExecutor
 from aqopa.simulator.state import HOOK_TYPE_PRE_HOST_LIST_EXECUTION,\
     HookExecutor, HOOK_TYPE_PRE_INSTRUCTION_EXECUTION,\
-    HOOK_TYPE_POST_INSTRUCTION_EXECUTION, HOOK_TYPE_SIMULATION_FINISHED
-    
+    HOOK_TYPE_POST_INSTRUCTION_EXECUTION, HOOK_TYPE_SIMULATION_FINISHED, HOOK_TYPE_COMMUNICATION_MESSAGE_PASSED
+
 from aqopa.simulator.error import RuntimeException,\
     EnvironmentDefinitionException, InfiniteLoopException
 
@@ -24,6 +25,7 @@ class Simulator():
         self._executor = None
         self._before_instruction_executor = HookExecutor()
         self._after_instruction_executor = HookExecutor()
+        self._communication_executor = CommunicationHookExecutor()
         
         self._first_loop = True
         self._infinite_loop_error = False
@@ -38,8 +40,11 @@ class Simulator():
         if hook_type not in self._hooks:
             return
         
-        if hook_type in [HOOK_TYPE_PRE_INSTRUCTION_EXECUTION, HOOK_TYPE_POST_INSTRUCTION_EXECUTION]:
-            raise RuntimeException("Cannot execute pre instruction and post instruction hooks manually.")
+        if hook_type in [HOOK_TYPE_PRE_INSTRUCTION_EXECUTION,
+                         HOOK_TYPE_POST_INSTRUCTION_EXECUTION,
+                         HOOK_TYPE_COMMUNICATION_MESSAGE_PASSED]:
+            raise RuntimeException("Cannot execute pre instruction, post instruction "
+                                   "and communication hooks manually.")
         
         for h in self._hooks[hook_type]:
             h.execute(self.context)
@@ -133,6 +138,9 @@ class Simulator():
             
         if hook_type == HOOK_TYPE_POST_INSTRUCTION_EXECUTION:
             self._after_instruction_executor.add_hook(hook)
+
+        if hook_type == HOOK_TYPE_COMMUNICATION_MESSAGE_PASSED:
+            self._communication_executor.add_hook(hook)
         
         return self
     
@@ -164,6 +172,7 @@ class Simulator():
             raise EnvironmentDefinitionException("Simulation is not yet ready to run.")
 
         self._executor.prepend_instruction_executor(self._before_instruction_executor)
+        self._executor.append_instruction_executor(self._communication_executor)
         self._executor.append_instruction_executor(self._after_instruction_executor)
         
         while not self.is_simulation_finished():

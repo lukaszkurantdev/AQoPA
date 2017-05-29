@@ -5,6 +5,9 @@
 Next release:
 
 
+v0.9.6 (29-05-2017)
+- Added new hook type: communication message passed hook.
+
 v0.9.5 (09-02-2016)
 - Fixed communication paths update.
 
