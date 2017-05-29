@@ -116,6 +116,7 @@ HOOK_TYPE_PRE_HOST_LIST_EXECUTION       = 1
 HOOK_TYPE_PRE_INSTRUCTION_EXECUTION     = 2
 HOOK_TYPE_POST_INSTRUCTION_EXECUTION    = 3
 HOOK_TYPE_SIMULATION_FINISHED           = 4
+HOOK_TYPE_COMMUNICATION_MESSAGE_PASSED  = 5
 
 class Hook():
     """
@@ -700,7 +701,10 @@ class CommunicationInstructionExecutor(InstructionExecutor):
                     context.get_current_host().get_variable(instruction.variable_name).clone(),
                     context.expression_checker)
                 kwargs['sent_message'] = message
-            channel.send_message(context.get_current_host(), message, context.channels_manager.get_router())
+            fulfilled_requests = channel.send_message(context.get_current_host(),
+                                                      message,
+                                                      context.channels_manager.get_router())
+            kwargs['fulfilled_requests'] = fulfilled_requests
 
             # Go to next instruction
             context.get_current_host().get_current_instructions_context().goto_next_instruction()
@@ -714,7 +718,8 @@ class CommunicationInstructionExecutor(InstructionExecutor):
                                                                          context.expression_populator)
                 kwargs['messages_request'] = request
 
-            channel.wait_for_message(request)
+            fulfilled_requests = channel.wait_for_message(request)
+            kwargs['fulfilled_requests'] = fulfilled_requests
             
         return ExecutionResult(consumes_cpu=True, 
                                custom_index_management=True,
