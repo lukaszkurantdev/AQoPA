@@ -218,29 +218,33 @@ class Validator():
         Validates equations parsed from model according to functions.
         Returns True if validation is passed or raises EnvironmentDefinitionException.
         """
-        
-        # Validate syntax - function names and parametrs counts
+
+        # Validate syntax - function names and parameters counts
+
         self._validate_syntax(parsed_equations, functions)
-        
+
         errors = []
-        
+
         # Search for equations that can reduce themselves
         # Check all possible pairs of equations
-        for i in range (0, len(parsed_equations)):
+        for i in range(0, len(parsed_equations)):
             has_the_same_expression = False
-            for j in range(i+1, len(parsed_equations)):
+            eq_right = None
+            eq_left = parsed_equations[i]
+            for j in range(i + 1, len(parsed_equations)):
                 variables_map = {}
-                eq_left = parsed_equations[i]
+
                 eq_right = parsed_equations[j]
-                
-                if self._are_expressions_the_same(eq_left.composite, eq_right.composite, check_variables=True, variables=variables_map):
+
+                if self._are_expressions_the_same(eq_left.composite, eq_right.composite, check_variables=True,
+                                                  variables=variables_map):
                     if variables_map[eq_left.simple.identifier] == eq_right.simple.identifier:
                         has_the_same_expression = True
                         break
             if has_the_same_expression:
                 errors.append("Equations '%s' and '%s' are the same." % (unicode(eq_left), unicode(eq_right)))
-        
+
         # Todo: Check ambiguity
-        
+
         return True
 
