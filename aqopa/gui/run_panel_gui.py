@@ -7,9 +7,9 @@ import traceback
 
 # AQoPA imports
 from aqopa import app
-from aqopa.model.parser import MetricsParserException,\
-    ConfigurationParserException, ModelParserException
-from aqopa.simulator.error import EnvironmentDefinitionException,\
+from aqopa.model.parser import MetricsParserException, \
+    ConfigurationParserException, ModelParserException, ParserWarning
+from aqopa.simulator.error import EnvironmentDefinitionException, \
     RuntimeException
 
 """
@@ -18,14 +18,17 @@ from aqopa.simulator.error import EnvironmentDefinitionException,\
 @author     Damian Rusinek <damian.rusinek@gmail.com>
 @date       created on 05-09-2013 by Damian Rusinek
 @date       edited on 08-05-2014 by Katarzyna Mazur (visual improvements)
+@date       edited on 26-05-2020 by Karolina Wlaz (additional warnings)
 """
 
 # model parsing events
 ModelParsedEvent, EVT_MODEL_PARSED = wx.lib.newevent.NewEvent()
 ModelParseErrorEvent, EVT_MODEL_PARSE_ERROR = wx.lib.newevent.NewEvent()
 
+
 class RunPanel(wx.Panel):
     """ """
+
     def __init__(self, *args, **kwargs):
         wx.Panel.__init__(self, *args, **kwargs)
 
@@ -33,17 +36,17 @@ class RunPanel(wx.Panel):
         # SIMULATION
         ###############
 
-        self.qopml_model              = ""
-        self.qopml_metrics            = ""
-        self.qopml_configuration      = ""
+        self.qopml_model = ""
+        self.qopml_metrics = ""
+        self.qopml_configuration = ""
 
         self.allModules = []
-        self.selectedModules    = []
+        self.selectedModules = []
 
-        self.interpreter        = None
+        self.interpreter = None
         self.finishedSimulators = []
 
-        self.progressTimer      = wx.Timer(self)
+        self.progressTimer = wx.Timer(self)
         self.Bind(wx.EVT_TIMER, self.OnProgressTimerTick, self.progressTimer)
 
         ###############
@@ -83,13 +86,13 @@ class RunPanel(wx.Panel):
         self.runButton = wx.Button(bottomPanel, label="Run")
         self.runButton.SetToolTip(wx.ToolTip("Start the simulation process"))
         self.runButton.Enable(False)
-        #self.cleanButton = wx.Button(bottomPanel, label="Clean")
+        # self.cleanButton = wx.Button(bottomPanel, label="Clean")
 
         # properly align the bottom panel, buttons on the right
         panelSizer = wx.BoxSizer(wx.HORIZONTAL)
         panelSizer.Add(self.parseButton, 0, wx.LEFT | wx.ALL, 5)
         panelSizer.Add(self.runButton, 0, wx.LEFT | wx.ALL, 5)
-        #panelSizer.Add(self.cleanButton, 0, wx.LEFT | wx.ALL, 5)
+        # panelSizer.Add(self.cleanButton, 0, wx.LEFT | wx.ALL, 5)
         bottomPanel.SetSizer(panelSizer)
         sizer.Add(bottomPanel, 0, wx.ALIGN_RIGHT | wx.RIGHT, 5)
 
@@ -101,7 +104,7 @@ class RunPanel(wx.Panel):
 
         self.parseButton.Bind(wx.EVT_BUTTON, self.OnParseClicked)
         self.runButton.Bind(wx.EVT_BUTTON, self.OnRunClicked)
-        #self.cleanButton.Bind(wx.EVT_BUTTON, self.OnCleanClicked)
+        # self.cleanButton.Bind(wx.EVT_BUTTON, self.OnCleanClicked)
 
         self.Bind(EVT_MODEL_PARSED, self.OnModelParsed)
 
@@ -181,9 +184,9 @@ class RunPanel(wx.Panel):
 
     def SetModel(self, model, metrics, configuration):
         """ """
-        self.qopml_model              = model
-        self.qopml_metrics            = metrics
-        self.qopml_configuration      = configuration
+        self.qopml_model = model
+        self.qopml_metrics = metrics
+        self.qopml_configuration = configuration
 
     def SetSelectedModules(self, modules):
         """ """
@@ -196,9 +199,9 @@ class RunPanel(wx.Panel):
     def OnParseClicked(self, event):
         """ """
         self.interpreter = app.GuiInterpreter(
-                                     model_as_text=self.qopml_model,
-                                     metrics_as_text=self.qopml_metrics,
-                                     config_as_text=self.qopml_configuration)
+            model_as_text=self.qopml_model,
+            metrics_as_text=self.qopml_metrics,
+            config_as_text=self.qopml_configuration)
 
         for m in self.selectedModules:
             self.interpreter.register_qopml_module(m)
@@ -221,6 +224,7 @@ class RunPanel(wx.Panel):
         except MetricsParserException, e:
             error = True
             resultMessage = "METRICS SYNTAX ERROR\n"
+            print(e.syntax_errors)
             if len(e.syntax_errors):
                 resultMessage += "\n".join(e.syntax_errors)
         except ConfigurationParserException, e:
@@ -229,8 +233,17 @@ class RunPanel(wx.Panel):
             if len(e.syntax_errors):
                 resultMessage += "\n".join(e.syntax_errors)
 
+        import os
+        if os.path.exists("warnings.tmp"):
+            text_file = open("warnings.tmp", "r")
+            warnings = text_file.read()
+            text_file.close()
+            os.remove("warnings.tmp")
+            resultMessage += "\nYou have warnings:\n"
+            resultMessage += warnings
+
         if error:
-            resultMessage += "\nModel may include syntax parsed by modules (eg. metrics, configuration). "+\
+            resultMessage += "\nModel may include syntax parsed by modules (eg. metrics, configuration). " + \
                              "Have you selected modules?"
             wx.PostEvent(self, ModelParseErrorEvent(error=resultMessage))
         if resultMessage != "":
@@ -247,7 +260,7 @@ class RunPanel(wx.Panel):
         if not self.selectedModules:
             dial = wx.MessageDialog(None, "You have to choose some modules!", 'Warning', wx.OK | wx.ICON_EXCLAMATION)
             dial.ShowModal()
-        else :
+        else:
             try:
                 self.DisableModulesSelection(True)
 
@@ -271,7 +284,7 @@ class RunPanel(wx.Panel):
                 wx.lib.delayedresult.startWorker(self.OnSimulationFinished,
                                                  self.interpreter.run_simulation,
                                                  wargs=(simulator,),
-                                                 jobID = self.simulatorIndex)
+                                                 jobID=self.simulatorIndex)
 
 
             except EnvironmentDefinitionException, e:
@@ -301,7 +314,7 @@ class RunPanel(wx.Panel):
         self.finishedSimulators.append(simulator)
 
         resultMessage = None
-        try :
+        try:
             simulator = result.get()
 
             self.PrintProgressbar(self.GetProgress())
@@ -312,23 +325,23 @@ class RunPanel(wx.Panel):
 
             runResultValue = self.runResult.GetValue()
             resultMessage = runResultValue + \
-                "Version %s finished successfully.\n\n" \
-                % simulator.context.version.name
+                            "Version %s finished successfully.\n\n" \
+                            % simulator.context.version.name
 
         except RuntimeException, e:
             runResultValue = self.runResult.GetValue()
             resultMessage = runResultValue + \
-                "Version %s finished with error: \nHost: %s \nInstruction: %s\nError: %s \n\n" \
-                % (simulator.context.version.name,
-                    unicode(simulator.context.get_current_host()),
-                    unicode(simulator.context.get_current_instruction()),
-                    e.args[0])
+                            "Version %s finished with error: \nHost: %s \nInstruction: %s\nError: %s \n\n" \
+                            % (simulator.context.version.name,
+                               unicode(simulator.context.get_current_host()),
+                               unicode(simulator.context.get_current_instruction()),
+                               e.args[0])
         except Exception, e:
             sys.stderr.write(traceback.format_exc())
             runResultValue = self.runResult.GetValue()
             resultMessage = runResultValue + \
-                "Version %s finished with unknown error.\n\n" \
-                % simulator.context.version.name
+                            "Version %s finished with unknown error.\n\n" \
+                            % simulator.context.version.name
 
         if resultMessage:
             self.runResult.SetValue(resultMessage)
@@ -340,7 +353,7 @@ class RunPanel(wx.Panel):
             wx.lib.delayedresult.startWorker(self.OnSimulationFinished,
                                              self.interpreter.run_simulation,
                                              wargs=(simulator,),
-                                             jobID = self.simulatorIndex)
+                                             jobID=self.simulatorIndex)
 
     def OnAllSimulationsFinished(self):
         """ """
@@ -385,7 +398,7 @@ class RunPanel(wx.Panel):
         """
         Prints the formatted progressbar showing the progress of simulation.
         """
-        percentage = str(int(round(progress*100))) + '%'
+        percentage = str(int(round(progress * 100))) + '%'
         self.percentLabel.SetLabel(percentage)
         self.runPanel.Layout()
 
@@ -403,10 +416,10 @@ class RunPanel(wx.Panel):
             self.dotsLabel.SetLabel(dots)
             self.runPanel.Layout()
 
-    #def OnCleanClicked(self, event):
+    # def OnCleanClicked(self, event):
     #    self.parseResult.Clear()
 
-    def DisableModulesSelection(self, value) :
+    def DisableModulesSelection(self, value):
 
         """
         @brief  disables/enables elements on 'Modules' tab (panel),
@@ -421,12 +434,12 @@ class RunPanel(wx.Panel):
         modulesTab = notebook.GetPage(3)
 
         # disable or enable gui elements (depends on 'value')
-        if value :
+        if value:
             modulesTab.selectButton.Disable()
             modulesTab.configureButton.Disable()
             modulesTab.comboCheckBox.Disable()
             modulesTab.modulesConfComboBox.Disable()
-        else :
+        else:
             modulesTab.selectButton.Enable()
             modulesTab.configureButton.Enable()
             modulesTab.comboCheckBox.Enable()
