@@ -3,6 +3,14 @@ Created on 22-04-2013
 
 @author: Damian Rusinek <damian.rusinek@gmail.com>
 '''
+class ParserWarning(Warning):
+    def __init__(self, *args, **kwargs):
+        """ """
+        self.syntax_warnings = []
+        if 'syntax_warnings' in kwargs:
+            self.syntax_warnings = kwargs['syntax_warnings']
+            del kwargs['syntax_warnings']
+        super(ParserWarning, self).__init__(*args)
 
 class ParserException(Exception):   
     
