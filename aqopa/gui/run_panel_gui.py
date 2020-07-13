@@ -233,15 +233,6 @@ class RunPanel(wx.Panel):
             if len(e.syntax_errors):
                 resultMessage += "\n".join(e.syntax_errors)
 
-        import os
-        if os.path.exists("warnings.tmp"):
-            text_file = open("warnings.tmp", "r")
-            warnings = text_file.read()
-            text_file.close()
-            os.remove("warnings.tmp")
-            resultMessage += "\nYou have warnings:\n"
-            resultMessage += warnings
-
         if error:
             resultMessage += "\nModel may include syntax parsed by modules (eg. metrics, configuration). " + \
                              "Have you selected modules?"

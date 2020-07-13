@@ -707,6 +707,14 @@ class Interpreter():
         parser.parse(self.config_as_text)
         if len(parser.get_syntax_errors()) > 0:
             raise ConfigurationParserException('Invalid syntax.', syntax_errors=parser.get_syntax_errors())
+        import os
+        if os.path.exists("warnings.tmp"):
+            text_file = open("warnings.tmp", "r")
+            warnings = text_file.read()
+            text_file.close()
+            os.remove("warnings.tmp")
+            print("\nYou have warnings:\n")
+            print(warnings)
     
     def install_modules(self, simulator):
         """ """
