@@ -70,19 +70,18 @@ class Simulator():
             
             if self._first_loop:
                 self._first_loop = False
-            else:
-                # If nothing has changed in this next state generation loop
-                if not self.context.any_host_changed():
-                    # Throw runtime error if any channel has message to be binded with receiver
-                    # or if any channel has dropped a message
-                    for ch in self.context.channels_manager.channels:
-                        if ch.get_dropped_messages_nb() > 0:
-                            raise InfiniteLoopException()
+            elif not self.context.any_host_changed():
+                # Throw runtime error if any channel has message to be binded with receiver
+                # or if any channel has dropped a message
+                for ch in self.context.channels_manager.channels:
+                    if ch.get_dropped_messages_nb() > 0:
+                        raise InfiniteLoopException()
 
-                    for h in self.context.hosts:
-                        if not h.finished():
-                            h.finish_failed(u'Infinite loop occured on instruction: %s' % 
-                                            unicode(h.get_current_instructions_context().get_current_instruction()))
+                for h in self.context.hosts:
+                    if not h.finished():
+                        h.finish_failed(u'Infinite loop occured on instruction: %s the host must first listen before '
+                                        u'someone sends something to him'
+                                        % unicode(h.get_current_instructions_context().get_current_instruction()))
                             
                 self.context.mark_all_hosts_unchanged()
 
