@@ -37,14 +37,14 @@ class Module(module.Module):
 
     def extend_model_parser(self, parser):
         """
-        Overriden
+        Overridden
         """
         parser.add_extension(ModelParserExtension())
         return parser
 
     def extend_config_parser(self, parser):
         """
-        Overriden
+        Overridden
         """
         parser.add_extension(ConfigParserExtension())
         return parser
@@ -300,7 +300,7 @@ class Module(module.Module):
             }
 
         # Traverse timetraces
-        # Additionaly create list of finish times of instructions for each host
+        # Additionally create list of finish times of instructions for each host
         # (List of times when instructions has been finished)  ze co
 
         for timetrace in timetraces:

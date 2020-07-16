@@ -316,7 +316,7 @@ class ConfigParserExtension(LexYaccParserExtension):
             parameters = t[5]
         t[0] = TopologyRule(t[1], t[2], t[3], parameters=parameters)
 
-    def version_topology_rule_boradcast(self, t):
+    def version_topology_rule_broadcast(self, t):
         """
         version_topology_rule : version_topology_rule_left_hosts ARROWRIGHT STAR COLON version_topology_rule_parameters SEMICOLON
         """
@@ -328,7 +328,7 @@ class ConfigParserExtension(LexYaccParserExtension):
     def version_topology_rule_left_hosts(self, t):
         """
         version_topology_rule_left_hosts : IDENTIFIER
-                        | version_topology_host_with_indicies
+                        | version_topology_host_with_indices
         """
         if isinstance(t[1], basestring):
             t[0] = TopologyRuleHost(t[1])
@@ -339,7 +339,7 @@ class ConfigParserExtension(LexYaccParserExtension):
         """
         version_topology_rule_right_hosts : IDENTIFIER
                         | STAR
-                        | version_topology_host_with_indicies
+                        | version_topology_host_with_indices
                         | version_topology_host_with_i_index
         """
         if isinstance(t[1], basestring):
@@ -350,9 +350,9 @@ class ConfigParserExtension(LexYaccParserExtension):
         else:
             t[0] = t[1]
 
-    def version_topology_host_with_indicies(self, t):
+    def version_topology_host_with_indices(self, t):
         """
-        version_topology_host_with_indicies : IDENTIFIER SQLPARAN INTEGER SQRPARAN
+        version_topology_host_with_indices : IDENTIFIER SQLPARAN INTEGER SQRPARAN
                 | IDENTIFIER SQLPARAN INTEGER COLON SQRPARAN
                 | IDENTIFIER SQLPARAN COLON INTEGER SQRPARAN
                 | IDENTIFIER SQLPARAN INTEGER COLON INTEGER SQRPARAN
@@ -441,12 +441,12 @@ class ConfigParserExtension(LexYaccParserExtension):
         self.parser.add_rule(self.version_medium_topology)
         self.parser.add_rule(self.version_topology_rules_list)
         self.parser.add_rule(self.version_topology_rule_point_to_point)
-        self.parser.add_rule(self.version_topology_rule_boradcast)
+        self.parser.add_rule(self.version_topology_rule_broadcast)
         self.parser.add_rule(self.version_topology_rule_left_hosts)
         self.parser.add_rule(self.version_topology_rule_right_hosts)
         self.parser.add_rule(self.version_topology_rule_parameters)
         self.parser.add_rule(self.version_topology_rule_quality_parameter)
-        self.parser.add_rule(self.version_topology_host_with_indicies)
+        self.parser.add_rule(self.version_topology_host_with_indices)
         self.parser.add_rule(self.version_topology_host_with_i_index)
         self.parser.add_rule(self.version_topology_arrow)
 

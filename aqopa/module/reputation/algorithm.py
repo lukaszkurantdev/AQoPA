@@ -8,7 +8,7 @@ from aqopa.model.parser.lex_yacc import LexYaccParser, LexYaccParserExtension
 from aqopa.simulator.state import Process
 
 
-class ComputionalParserExtension(LexYaccParserExtension):
+class ComputationalParserExtension(LexYaccParserExtension):
 
     def __init__(self):
         LexYaccParserExtension.__init__(self)
@@ -220,7 +220,7 @@ class ComputionalParserExtension(LexYaccParserExtension):
         self.parser.add_rule(self.reputation_expression_conditional_operators)
         self.parser.add_rule(self.reputation_expression_conditional_paran)
 
-class ComputionalParser(LexYaccParser):
+class ComputationalParser(LexYaccParser):
 
     _conditional_expression_instance = None
     _simple_expression_instance = None
@@ -257,29 +257,29 @@ class ComputionalParser(LexYaccParser):
 
     @staticmethod
     def conditional_expression_instance():
-        if ComputionalParser._conditional_expression_instance is None:
-            parser_ext = ComputionalParserExtension()
-            ComputionalParser._conditional_expression_instance = ComputionalParser()
-            ComputionalParser._conditional_expression_instance.add_extension(parser_ext)
-            ComputionalParser._conditional_expression_instance.start_symbol = 'reputation_expression_conditional'
-            ComputionalParser._conditional_expression_instance.build()
+        if ComputationalParser._conditional_expression_instance is None:
+            parser_ext = ComputationalParserExtension()
+            ComputationalParser._conditional_expression_instance = ComputationalParser()
+            ComputationalParser._conditional_expression_instance.add_extension(parser_ext)
+            ComputationalParser._conditional_expression_instance.start_symbol = 'reputation_expression_conditional'
+            ComputationalParser._conditional_expression_instance.build()
         else:
-            ComputionalParser._conditional_expression_instance.restart()
+            ComputationalParser._conditional_expression_instance.restart()
 
-        return ComputionalParser._conditional_expression_instance
+        return ComputationalParser._conditional_expression_instance
 
     @staticmethod
     def simple_expression_instance():
-        if ComputionalParser._simple_expression_instance is None:
-            parser_ext = ComputionalParserExtension()
-            ComputionalParser._simple_expression_instance = ComputionalParser()
-            ComputionalParser._simple_expression_instance.add_extension(parser_ext)
-            ComputionalParser._simple_expression_instance.start_symbol = 'reputation_expression'
-            ComputionalParser._simple_expression_instance.build()
+        if ComputationalParser._simple_expression_instance is None:
+            parser_ext = ComputationalParserExtension()
+            ComputationalParser._simple_expression_instance = ComputationalParser()
+            ComputationalParser._simple_expression_instance.add_extension(parser_ext)
+            ComputationalParser._simple_expression_instance.start_symbol = 'reputation_expression'
+            ComputationalParser._simple_expression_instance.build()
         else:
-            ComputionalParser._conditional_expression_instance.restart()
+            ComputationalParser._conditional_expression_instance.restart()
 
-        return ComputionalParser._simple_expression_instance
+        return ComputationalParser._simple_expression_instance
 
 
 
@@ -287,19 +287,19 @@ def compute_conditional_expression(host, expression, vars):
     """
     Computes the result of conditional expression.
     """
-    parser = ComputionalParser.conditional_expression_instance()
+    parser = ComputationalParser.conditional_expression_instance()
     return parser.parse_expression(expression, host, vars)
 
 def compute_simple_expression(host, expression, vars):
     """
     Computes the result of simple expression.
     """
-    parser = ComputionalParser.simple_expression_instance()
+    parser = ComputationalParser.simple_expression_instance()
     return parser.parse_expression(expression, host, vars)
 
 def update_vars(host, instructions, vars):
     """
-    Updae vars according to the instructions of algorithm.
+    Update vars according to the instructions of algorithm.
     """
     index = 0
     while index < len(instructions):

@@ -221,7 +221,7 @@ class SingleVersionPanel(wx.Panel):
     def _GetoOccuredFacts(self, simulator):
         host = None
         # get all hosts assigned to this simulator
-        allHosts = self.module.occured_facts[simulator]
+        allHosts = self.module.occurred_facts[simulator]
         # get the name of the host selected on hosts combo box
         hostName = self.hostsList.GetValue()
         # from all hosts get the selected one - its the host
@@ -231,7 +231,7 @@ class SingleVersionPanel(wx.Panel):
                 host = h
                 break
         # get all facts for the particular simulator and host
-        return self.module.get_occured_facts(simulator, host)
+        return self.module.get_occurred_facts(simulator, host)
 
 class MainResultsNotebook(wx.Notebook):
     """ """

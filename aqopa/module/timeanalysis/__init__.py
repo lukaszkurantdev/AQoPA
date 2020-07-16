@@ -36,21 +36,21 @@ class Module(module.Module):
     
     def extend_model_parser(self, parser):
         """
-        Overriden
+        Overridden
         """
         parser.add_extension(ModelParserExtension())
         return parser
 
     def extend_metrics_parser(self, parser):
         """
-        Overriden
+        Overridden
         """
         parser.add_extension(MetricsParserExtension())
         return parser
 
     def extend_config_parser(self, parser):
         """
-        Overriden
+        Overridden
         """
         parser.add_extension(ConfigParserExtension())
         return parser

@@ -66,17 +66,17 @@ COMMUNICATION_TYPE_OUT = 2
     
 class Channel():
     
-    def __init__(self, name, buffor_size, tag_name=None):
+    def __init__(self, name, buffer_size, tag_name=None):
         self.name = name
-        self.buffor_size = buffor_size # Buffor size < 0 is unlimited
+        self.buffer_size = buffer_size # Buffer size < 0 is unlimited
         self.tag_name = tag_name
 
     def __unicode__(self):
-        buffor_size = str(self.buffor_size) if self.buffor_size >= 0 else "*"
-        return u"channel %s [%s]" % (self.name, buffor_size)
+        buffer_size = str(self.buffer_size) if self.buffer_size >= 0 else "*"
+        return u"channel %s [%s]" % (self.name, buffer_size)
     
     def clone(self):
-        return Channel(copy.copy(self.name), copy.copy(self.buffor_size))
+        return Channel(copy.copy(self.name), copy.copy(self.buffer_size))
 
 class Equation():
     

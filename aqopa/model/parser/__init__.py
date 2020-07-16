@@ -38,7 +38,7 @@ class QoPMLModelParser():
         """
         Parses string s and returns the store of all required parsed objects.
         The parser can also store created objects in his own store.
-        Sometimes modules will add parsing rules and the results should be keept by the modules,
+        Sometimes modules will add parsing rules and the results should be kept by the modules,
         so information about custom stores filling in is kept in modules code. 
         """
         raise NotImplementedError()

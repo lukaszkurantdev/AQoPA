@@ -29,4 +29,4 @@ class PrintResultsHook(Hook):
 
         self.output_file.write("\nActual facts:\n")
         for host in context.hosts:
-            self.output_file.write('Host:\t{0}\tFacts: {1:}\t\n'.format(host.name, str(self.module.get_occured_facts(self.simulator, host))))
+            self.output_file.write('Host:\t{0}\tFacts: {1:}\t\n'.format(host.name, str(self.module.get_occurred_facts(self.simulator, host))))

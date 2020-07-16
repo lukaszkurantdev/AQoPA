@@ -24,7 +24,7 @@ class PrintResultsHook(Hook):
         self.output_file.write('\n')
         self.output_file.write('Version\t%s\n\n' % self.simulator.context.version.name)
         
-        if self.simulator.infinite_loop_occured():
+        if self.simulator.infinite_loop_occurred():
             self.output_file.write('ERROR\tInfinite loop on {0} -> {1}\n'.format(
                                 unicode(self.simulator.context.get_current_host()),
                                 unicode(self.simulator.context.get_current_instruction())))

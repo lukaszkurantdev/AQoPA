@@ -67,7 +67,7 @@ class PreInstructionHook(Hook):
         fact = self._get_occured_facts_details_for_expression(context, expression)
 
         # add fact to the module's fact list
-        self.module.add_occured_fact(self.simulator, context.get_current_host(), fact)
+        self.module.add_occurred_fact(self.simulator, context.get_current_host(), fact)
 
     def _get_occured_facts_details_for_expression(self, context, expression):
         if isinstance(expression, TupleExpression):
@@ -113,7 +113,7 @@ class PreInstructionHook(Hook):
         # make a list from all the facts within the simulator and its hosts,
         # simply concatenate all the facts from all the simulators and its all
         # hosts into a one, big list of facts available within the loaded model
-        facts = self.module.get_occured_facts(self.simulator, context.get_current_host())
+        facts = self.module.get_occurred_facts(self.simulator, context.get_current_host())
         for fact in facts:
             if fact not in PreInstructionHook.all_facts:
                 PreInstructionHook.all_facts.append(fact)

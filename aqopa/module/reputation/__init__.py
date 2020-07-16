@@ -27,14 +27,14 @@ class Module(module.Module):
     
     def extend_metrics_parser(self, parser):
         """
-        Overriden
+        Overridden
         """
         parser.add_extension(MetricsParserExtension())
         return parser
 
     def extend_model_parser(self, parser):
         """
-        Overriden
+        Overridden
         """
         parser.add_extension(ModelParserExtension(self))
         return parser

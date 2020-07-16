@@ -79,7 +79,7 @@ class Simulator():
 
                 for h in self.context.hosts:
                     if not h.finished():
-                        h.finish_failed(u'Infinite loop occured on instruction: %s the host must first listen before '
+                        h.finish_failed(u'Infinite loop occurred on instruction: %s the host must first listen before '
                                         u'someone sends something to him'
                                         % unicode(h.get_current_instructions_context().get_current_instruction()))
                             
@@ -99,8 +99,8 @@ class Simulator():
         """ executor setter """
         self._executor = executor
         
-    def infinite_loop_occured(self):
-        """ Returns True if infinite loop occured """
+    def infinite_loop_occurred(self):
+        """ Returns True if infinite loop occurred """
         return self._infinite_loop_error
     
     def register_module(self, module):
@@ -152,9 +152,9 @@ class Simulator():
     def is_simulation_finished(self):
         """
         Returns True if simulation has ended.
-        Simulation can end with success or error (eg. infinite loop occured).
+        Simulation can end with success or error (eg. infinite loop occurred).
         """
-        return self.is_ready_to_run() and (self.context.all_hosts_finished() or self.infinite_loop_occured())
+        return self.is_ready_to_run() and (self.context.all_hosts_finished() or self.infinite_loop_occurred())
 
     def count_dropped_messages(self):
         """

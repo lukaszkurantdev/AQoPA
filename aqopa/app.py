@@ -111,7 +111,7 @@ class Builder():
             
             return new_instructions_list
             
-        def get_channels_assgined_to_host(run_host, parsed_host, built_channels):
+        def get_channels_assigned_to_host(run_host, parsed_host, built_channels):
             """
             Creates list all channels that host can use.
             Firstly it is checked in version, secondly in parsed host.
@@ -263,7 +263,7 @@ class Builder():
             # Create prototype parsed host for this "run host"
             parsed_host = store.find_host(run_host.host_name)
             
-            assigned_channels = get_channels_assgined_to_host(run_host, parsed_host, channels)
+            assigned_channels = get_channels_assigned_to_host(run_host, parsed_host, channels)
             
             for i in range(0, run_host.repetitions):
 
@@ -334,7 +334,7 @@ class Builder():
         
         built_channels = []
         for parsed_channel in store.channels:
-            channel = communication.Channel(parsed_channel.name, parsed_channel.buffor_size, parsed_channel.tag_name)
+            channel = communication.Channel(parsed_channel.name, parsed_channel.buffer_size, parsed_channel.tag_name)
             built_channels.append(channel)
         return built_channels
     
@@ -489,7 +489,7 @@ class Builder():
                 # Assign normal block to all host metrics with the same original name
                 for existing_hm in host_metrics:
                     if original_name(existing_hm.name) == hm_original_name:
-                        # Assign notmal block to all host metrics with the same original name
+                        # Assign normal block to all host metrics with the same original name
                         # (including the current one - possibly created)
                         existing_hm.normal_blocks = blocks
                         

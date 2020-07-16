@@ -16,9 +16,9 @@ class Module(module.Module):
 
     def __init__(self):
 
-        # all occured facts in a host, format: (simulator is the dict's key):
+        # all occurred facts in a host, format: (simulator is the dict's key):
         # { simulator: {host0: [f1,f2, ... fn], host1: [f1,f2, ..., fm]} }
-        self.occured_facts = {}
+        self.occurred_facts = {}
 
         # all facts in a model
         self.all_facts = []
@@ -63,41 +63,41 @@ class Module(module.Module):
         """
         self.all_facts = facts_list[:]
 
-    def add_occured_fact(self, simulator, host, fact):
+    def add_occurred_fact(self, simulator, host, fact):
         """
-        @brief adds a new, occured fact to the list
-        of occured facts for the particular host
+        @brief adds a new, occurred fact to the list
+        of occurred facts for the particular host
         present in the QoP-ML's model
         """
         # add a new simulator if not available yet
-        if simulator not in self.occured_facts:
-            self.occured_facts[simulator] = {}
+        if simulator not in self.occurred_facts:
+            self.occurred_facts[simulator] = {}
         # add a new host if not available yet
-        if host not in self.occured_facts[simulator] :
-            self.occured_facts[simulator][host] = []
+        if host not in self.occurred_facts[simulator] :
+            self.occurred_facts[simulator][host] = []
         # add a new fact for the host - but only if we
         # have not added it yet and if it is not empty
-        if str(fact) not in self.occured_facts[simulator][host] and fact:
+        if str(fact) not in self.occurred_facts[simulator][host] and fact:
             # if the fact is actually a list of facts,
             if type(fact) is list:
                 # add all the elements from the facts list
                 for f in fact :
-                    if str(f) not in self.occured_facts[simulator][host]:
-                        self.occured_facts[simulator][host].append(str(f))
+                    if str(f) not in self.occurred_facts[simulator][host]:
+                        self.occurred_facts[simulator][host].append(str(f))
             else:
-                self.occured_facts[simulator][host].append(str(fact))
+                self.occurred_facts[simulator][host].append(str(fact))
 
-    def get_occured_facts(self, simulator, host) :
+    def get_occurred_facts(self, simulator, host) :
         """
-        @brief gets a list of all occured facts
+        @brief gets a list of all occurred facts
         for the particular host present in the
         QoP-ML's model
         """
-        if simulator not in self.occured_facts:
-            self.occured_facts[simulator] = {}
-        if host not in self.occured_facts[simulator]:
-            self.occured_facts[simulator][host] = []
-        return self.__make_list_flat(self.occured_facts[simulator][host])
+        if simulator not in self.occurred_facts:
+            self.occurred_facts[simulator] = {}
+        if host not in self.occurred_facts[simulator]:
+            self.occurred_facts[simulator][host] = []
+        return self.__make_list_flat(self.occurred_facts[simulator][host])
 
     def get_qop_params(self):
         pass

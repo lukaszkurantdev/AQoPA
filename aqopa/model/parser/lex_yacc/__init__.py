@@ -13,7 +13,7 @@ from aqopa.model.parser import ParserException, QoPMLModelParser
 
 class LexYaccParserExtension():
     """
-    Abstract extenstion of parser (tokens, states, rules, etc.)
+    Abstract extension of parser (tokens, states, rules, etc.)
     """
 
     def __init__(self):
@@ -54,7 +54,7 @@ class LexYaccParser(QoPMLModelParser):
 
         self.store = None  # store for built objects
 
-        self.syntax_errors = []  # list of syntax errors that occured while parsing
+        self.syntax_errors = []  # list of syntax errors that occurred while parsing
 
     def get_syntax_errors(self):
         return self.syntax_errors
@@ -163,7 +163,7 @@ class LexYaccParser(QoPMLModelParser):
 
     def get_reserved_words(self):
         """
-        Returns all reserver words 
+        Returns all reserved words
         """
         return self.reserved_words
 
@@ -184,8 +184,8 @@ class LexYaccParser(QoPMLModelParser):
 
             add_message = ""
             if t.value == '}':
-                add_message = "Maby you should add \';\' before '%s'." % (t.value)
+                add_message = "Maybe you should add \';\' before '%s'." % (t.value)
             elif len(t.type.split('_')) == 2 and t.type.split('_')[1] == 'SPECIFICATION':
-                add_message = "Maby you should add \'}\' before '%s'." % (t.value)
+                add_message = "Maybe you should add \'}\' before '%s'." % (t.value)
             self.syntax_errors.append(("Line [%s:%s, pos: %s]: Syntax error near '%s'. " % (
             t.lexer.lineno, column, t.lexer.lexpos, t.value) + add_message))
