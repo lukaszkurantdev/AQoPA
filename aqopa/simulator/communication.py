@@ -13,7 +13,7 @@ from aqopa.simulator.state import HookExecutor, ExecutionResult
 class CommunicationHookExecutor(HookExecutor):
 
     def execute_instruction(self, context, **kwargs):
-        """ Overriden """
+        """ Overridden """
         consumes_cpu = False
         custom_index_management = False
         finish_instruction_execution = False
@@ -36,7 +36,7 @@ class CommunicationHookExecutor(HookExecutor):
                                result_kwargs=exec_kwargs)
 
     def can_execute_instruction(self, instruction):
-        """ Overriden """
+        """ Overridden """
         return isinstance(instruction, CommunicationInstruction)
 
 
@@ -166,7 +166,7 @@ class Channel():
         self.name = name
         self.tag_name = tag_name
         self._buffer_size = buffer_size   # Size of buffer, negative means that buffer is unlimited,
-                                          # zero means that channel is asynhronous
+                                          # zero means that channel is asynchronous
         self._connected_hosts = []  # List of hosts that can use this channel
         self._connected_processes = []  # List of processes that can use this channel
         self._buffers = {}  # Hosts' buffers - the host is the key, the list of sent messages is the value
@@ -352,7 +352,7 @@ class Channel():
                 # print "Binded: ", unicode(request.instruction), unicode(request.receiver)
 
                 # If channel is synchronous, delete the request - a new one will be created
-                # when the intruction is executed again
+                # when the instruction is executed again
                 if self.is_synchronous():
                     self._waiting_requests.remove(request)
                 else:
@@ -600,7 +600,7 @@ class Router():
 
     def get_hosts_sending_to_receiver(self, medium_name, receiver):
         """
-        Returns ditictionary:
+        Returns dictionary:
          host -> quality
         containing hosts that can send message to receiver.
         """
@@ -624,7 +624,7 @@ class Router():
         if existing_next_hop is not None:
             return existing_next_hop
 
-        # Build path using Dijsktra algorithm
+        # Build path using Dijkstra algorithm
         topology = self.mediums[medium_name]['topology']
 
         def find_closest_host(distances, out):
@@ -637,7 +637,7 @@ class Router():
                         d = distances[h]
             return closest_host, d
 
-        # Dijsktra
+        # Dijkstra
         distances = {sender: 0}
         out = []
         closest, closes_distance = find_closest_host(distances, out)

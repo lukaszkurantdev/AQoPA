@@ -14,7 +14,7 @@ from sme.SMETool import SMETool
 class SingleVersionPanel(wx.Panel):
     """
     Frame presenting results for one simulation.
-    Simulator may be retrived from module,
+    Simulator may be retrieved from module,
     because each module has its own simulator.
     """
 
@@ -24,7 +24,7 @@ class SingleVersionPanel(wx.Panel):
         self.module = module
         self.versionSimulator = {}
         self.all_facts = []
-        self.occured_facts = []
+        self.occurred_facts = []
 
         #################
         # VERSION BOX
@@ -176,11 +176,11 @@ class SingleVersionPanel(wx.Panel):
         qopsWindow = GeneralFrame(self, "QoP Analysis Results", title, "modules_results.png")
         qopParamsPanel = wx.Panel(qopsWindow)
 
-        # get all & occured facts
+        # get all & occurred facts
         versionName = self.versionsList.GetValue()
         simulator = self.versionSimulator[versionName]
         # simply copy lists
-        self.occured_facts = self._GetoOccuredFacts(simulator)[:]
+        self.occurred_facts = self._GetoOccurredFacts(simulator)[:]
         self.all_facts = self._GetAllFacts(simulator)[:]
 
         ##################################
@@ -192,16 +192,16 @@ class SingleVersionPanel(wx.Panel):
         allFactsBoxSizer.Add(all_factsListBox, 1, wx.ALL | wx.EXPAND, 5)
 
         ##################################
-        # OCCURED FACTS LAYOUT
+        # OCCURRED FACTS LAYOUT
         ##################################
-        occured_factsListBox = wx.ListBox(qopParamsPanel, choices=self.occured_facts)
-        occured_factsBox = wx.StaticBox(qopParamsPanel, label="Occured Facts")
-        occuredFactsBoxSizer = wx.StaticBoxSizer(occured_factsBox, wx.VERTICAL)
-        occuredFactsBoxSizer.Add(occured_factsListBox, 1, wx.ALL | wx.EXPAND, 5)
+        occurred_factsListBox = wx.ListBox(qopParamsPanel, choices=self.occurred_facts)
+        occurred_factsBox = wx.StaticBox(qopParamsPanel, label="Occured Facts")
+        occurredFactsBoxSizer = wx.StaticBoxSizer(occurred_factsBox, wx.VERTICAL)
+        occurredFactsBoxSizer.Add(occurred_factsListBox, 1, wx.ALL | wx.EXPAND, 5)
 
         sizer = wx.BoxSizer(wx.HORIZONTAL)
         sizer.Add(allFactsBoxSizer, 1, wx.ALL | wx.EXPAND, 5)
-        sizer.Add(occuredFactsBoxSizer, 1, wx.ALL | wx.EXPAND, 5)
+        sizer.Add(occurredFactsBoxSizer, 1, wx.ALL | wx.EXPAND, 5)
 
         qopParamsPanel.SetSizer(sizer)
         qopParamsPanel.Layout()
@@ -212,13 +212,13 @@ class SingleVersionPanel(wx.Panel):
         qopsWindow.Show()
 
         # some kind of debugging
-        #print "Occured facts from GUI: "+str(self._GetoOccuredFacts(simulator))
+        #print "Occurred facts from GUI: "+str(self._GetoOccurredFacts(simulator))
         #print "All facts from GUI: "+str(self._GetAllFacts(simulator))
 
     def _GetAllFacts(self, simulator):
         return self.module.get_all_facts()
 
-    def _GetoOccuredFacts(self, simulator):
+    def _GetoOccurredFacts(self, simulator):
         host = None
         # get all hosts assigned to this simulator
         allHosts = self.module.occurred_facts[simulator]

@@ -210,7 +210,7 @@ class RunPanel(wx.Panel):
             resultMessage = ""
             error = False
             self.interpreter.parse(self.allModules)
-            resultMessage = "SUCCESFULLY PARSED\n\n Now you can run simulation."
+            resultMessage = "SUCCESSFULLY PARSED\n\n Now you can run simulation."
             wx.PostEvent(self, ModelParsedEvent())
         except EnvironmentDefinitionException, e:
             error = True

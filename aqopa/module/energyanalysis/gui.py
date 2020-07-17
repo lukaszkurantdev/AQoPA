@@ -23,7 +23,7 @@ from aqopa.gui.general_purpose_frame_gui import GeneralFrame
 class SingleVersionPanel(wx.Panel):
     """ 
     Frame presenting results for one simulation.  
-    Simulator may be retrived from module, 
+    Simulator may be retrieved from module,
     because each module has its own simulator.
     """
     
@@ -56,7 +56,7 @@ class SingleVersionPanel(wx.Panel):
         
         self.consumptionsBox = wx.StaticBox(self, label="Energy consumption results")
 
-        self.voltageLabel = wx.StaticText(self, label="Enther the Voltage value:")
+        self.voltageLabel = wx.StaticText(self, label="Enter the Voltage value:")
         self.voltageInput = wx.TextCtrl(self, size=(200, 20))
         
         voltageHBoxSizer = wx.BoxSizer(wx.HORIZONTAL)

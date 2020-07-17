@@ -174,7 +174,7 @@ class ReductionPoint():
     
     def equals_to(self, reduction_point):
         """
-        Returns True if self and reduction_points try to reduct the expression in the same place.
+        Returns True if self and reduction_points try to reduce the expression in the same place.
         """
         return self.expression == reduction_point.expression \
             and self.modified_part == reduction_point.modified_part \
@@ -197,7 +197,7 @@ class ReductionPoint():
     def reduce(self):
         """
         Returns reduced expression. 
-        Method saves informaction for rolling back the reduction.
+        Method saves information for rolling back the reduction.
         """ 
         if self.modified_part is None:
             return self.replacement 
@@ -221,7 +221,7 @@ class ReductionPoint():
 class Reducer():
     """
     Expression reducer.
-    Class used to recude complex expressions with usage of equations.
+    Class used to reduce complex expressions with usage of equations.
     """
     
     def __init__(self, equations):

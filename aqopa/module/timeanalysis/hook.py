@@ -316,7 +316,7 @@ class PreInstructionHook(Hook):
             return 0
         return self._get_time_for_communication_step(context, message.sender, channel, metric, message, receiver=request.receiver)
 
-    def _get_time_of_sending_boradcast(self, context, channel, message):
+    def _get_time_of_sending_broadcast(self, context, channel, message):
         """ Returns time of message sending process """
         metric = self._find_communication_metric(context, channel, message.sender, receiver=None)
         if metric is None:
@@ -448,7 +448,7 @@ class PreInstructionHook(Hook):
             if len(accepted_requests) > 1:
                 # broadcast
                 # Send message with broadcast metric, update sender's time and fill in the sending time in message
-                broadcast_time = self._get_time_of_sending_boradcast(context, channel, sent_message)
+                broadcast_time = self._get_time_of_sending_broadcast(context, channel, sent_message)
                 self.module.add_message_sent_time(self.simulator, sent_message, sender_time)
                 self.module.add_message_sending_time(self.simulator, sent_message, broadcast_time)
 
@@ -510,7 +510,7 @@ class PreInstructionHook(Hook):
 
             else:  # zero receivers
                 # Send message with broadcast metric and update sender's time - no receivers
-                broadcast_time = self._get_time_of_sending_boradcast(context, channel, sent_message)
+                broadcast_time = self._get_time_of_sending_broadcast(context, channel, sent_message)
                 self.module.add_message_sent_time(self.simulator, sent_message, sender_time)
                 self.module.add_message_sending_time(self.simulator, sent_message, broadcast_time)
 

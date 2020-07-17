@@ -24,7 +24,7 @@ from aqopa.gui.general_purpose_frame_gui import GeneralFrame
 class SingleVersionPanel(wx.Panel):
     """ 
     Frame presenting results for one simulation.  
-    Simulator may be retrived from module, 
+    Simulator may be retrieved from module,
     because each module has its own simulator.
     """
     
@@ -1097,7 +1097,7 @@ class DistributedVersionPanel(wx.Panel):
         # labels
         versionLbl = wx.StaticText(self, label="Version", size=(200, -1))
         timeLbl = wx.StaticText(self, label="Time", size=(200, -1))
-        hostsLbl = wx.StaticText(self, label="Number of simulatenous\nhosts", size=(200, -1))
+        hostsLbl = wx.StaticText(self, label="Number of simultaneous\nhosts", size=(200, -1))
 
         hS = wx.BoxSizer(wx.HORIZONTAL)
         hS.Add(versionLbl, 0)
@@ -1651,7 +1651,7 @@ class DistributedSystemOptimizationPanel(wx.ScrolledWindow):
         # hS = wx.BoxSizer(wx.HORIZONTAL)
         # hS.Add(wx.StaticText(self, label="Version", size=(200, -1)), 0)
         # hS.Add(wx.StaticText(self, label="Time", size=(200, -1)), 0)
-        # hS.Add(wx.StaticText(self, label="Number of simulatenous hosts", size=(200, -1)), 0)
+        # hS.Add(wx.StaticText(self, label="Number of simultaneous hosts", size=(200, -1)), 0)
         # self.resultsBoxSizer.Add(hS, 0, wx.ALL | wx.EXPAND, 0)
         
         self.Layout()

@@ -25,7 +25,7 @@ class PrintResultsHook(Hook):
         self.output_file.write('\n')
         self.output_file.write('Version\t%s\n\n' % self.simulator.context.version.name)
 
-        self.output_file.write('All occured facts:\t{0}\n'.format(self.module.get_all_facts()))
+        self.output_file.write('All occurred facts:\t{0}\n'.format(self.module.get_all_facts()))
 
         self.output_file.write("\nActual facts:\n")
         for host in context.hosts:

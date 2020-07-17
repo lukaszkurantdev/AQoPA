@@ -30,15 +30,15 @@ class PrintResultsHook(Hook):
 
         emissions = self.module.calculate_all_emissions(self.simulator, context.hosts, pounds_of_co2_per_kWh)
 
-        minemission, minhost = self.module.get_min_emission(self.simulator, context.hosts)
-        maxemission, maxhost = self.module.get_max_emission(self.simulator, context.hosts)
-        totalemission = self.module.get_total_emission(self.simulator, context.hosts)
-        avgemission = self.module.get_avg_emission(self.simulator, context.hosts)
+        min_emission, min_host = self.module.get_min_emission(self.simulator, context.hosts)
+        max_emission, max_host = self.module.get_max_emission(self.simulator, context.hosts)
+        total_emission = self.module.get_total_emission(self.simulator, context.hosts)
+        avg_emission = self.module.get_avg_emission(self.simulator, context.hosts)
 
-        self.output_file.write('Minimal emission:\t{0}\tHost: {1:}\t\n'.format(str(minemission), minhost.name))
-        self.output_file.write('Maximal emission: \t{0}\tHost: {1:}\t\n'.format(str(maxemission), maxhost.name))
-        self.output_file.write('Total emission:\t\t{0}\n'.format(str(totalemission)))
-        self.output_file.write('Average emission:\t{0}\n'.format(str(avgemission)))
+        self.output_file.write('Minimal emission:\t{0}\tHost: {1:}\t\n'.format(str(min_emission), min_host.name))
+        self.output_file.write('Maximal emission: \t{0}\tHost: {1:}\t\n'.format(str(max_emission), max_host.name))
+        self.output_file.write('Total emission:\t\t{0}\n'.format(str(total_emission)))
+        self.output_file.write('Average emission:\t{0}\n'.format(str(avg_emission)))
 
         self.output_file.write("\nActual emissions:\n")
         for host in context.hosts:

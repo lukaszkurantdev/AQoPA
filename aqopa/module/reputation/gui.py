@@ -23,7 +23,7 @@ from aqopa.gui.general_purpose_frame_gui import GeneralFrame
 class SingleVersionPanel(wx.Panel):
     """ 
     Frame presenting results for one simulation.  
-    Simulator may be retrived from module, 
+    Simulator may be retrieved from module,
     because each module has its own simulator.
     """
     

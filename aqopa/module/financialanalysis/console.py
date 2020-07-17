@@ -30,15 +30,15 @@ class PrintResultsHook(Hook):
 
         costs = self.module.calculate_all_costs(self.simulator, context.hosts, cost_per_kWh)
 
-        mincost, minhost = self.module.get_min_cost(self.simulator, context.hosts)
-        maxcost, maxhost = self.module.get_max_cost(self.simulator, context.hosts)
-        totalcost = self.module.get_total_cost(self.simulator, context.hosts)
-        avgcost = self.module.get_avg_cost(self.simulator, context.hosts)
+        min_cost, min_host = self.module.get_min_cost(self.simulator, context.hosts)
+        max_cost, max_host = self.module.get_max_cost(self.simulator, context.hosts)
+        total_cost = self.module.get_total_cost(self.simulator, context.hosts)
+        avg_cost = self.module.get_avg_cost(self.simulator, context.hosts)
 
-        self.output_file.write('Minimal cost:\t\t{0}\tHost: {1:}\t\n'.format(str(mincost), minhost.name))
-        self.output_file.write('Maximal cost: \t\t{0}\tHost: {1:}\t\n'.format(str(maxcost), maxhost.name))
-        self.output_file.write('Total cost:\t\t{0}\n'.format(str(totalcost)))
-        self.output_file.write('Average cost:\t\t{0}\n'.format(str(avgcost)))
+        self.output_file.write('Minimal cost:\t\t{0}\tHost: {1:}\t\n'.format(str(min_cost), min_host.name))
+        self.output_file.write('Maximal cost: \t\t{0}\tHost: {1:}\t\n'.format(str(max_cost), max_host.name))
+        self.output_file.write('Total cost:\t\t{0}\n'.format(str(total_cost)))
+        self.output_file.write('Average cost:\t\t{0}\n'.format(str(avg_cost)))
 
         self.output_file.write("\nActual costs:\n")
         for host in context.hosts:

@@ -56,7 +56,7 @@ class Equation():
         Method returns True if reduced_expression can be reduced with composite_expression.
         Recursive strategy.
         
-        composite_expression is a paremeter, because it is changed while nesting reduction check.
+        composite_expression is a parameter, because it is changed while nesting reduction check.
         Otherwise it would be possible to retrieve it from composite field of self.
         
         In variables parameter method saves values of identifiers from composite_expression.
@@ -113,7 +113,7 @@ class Validator():
     
     def _validate_function_names(self, expression, functions):
         """
-        Method checs if all function exist and are callef woth correct number of parameters.
+        Method checks if all function exist and are called with correct number of parameters.
         Returns True or raises EnvironmentDefinitionException.
         """
         if isinstance(expression, CallFunctionExpression):
@@ -196,7 +196,7 @@ class Validator():
         """
         Method check the syntax of equations:
         - does composite part include the identifier from simple part (if simple part is identifier)?
-        - do all functions exist and are callef woth correct number of parameters?
+        - do all functions exist and are called with correct number of parameters?
         Returns True or raises EnvironmentDefinitionException.
         """
         errors = []
