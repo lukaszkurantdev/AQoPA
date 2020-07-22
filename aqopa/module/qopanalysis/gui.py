@@ -152,13 +152,8 @@ class SingleVersionPanel(wx.Panel):
 
     def SetVersionsResultsVisibility(self, visible):
         """ """
-        widgets = []
-        widgets.append(self.hostsList)
-        widgets.append(self.hostsBox)
-        widgets.append(self.showQoPBtn)
+        widgets = [self.hostsList, self.hostsBox, self.showQoPBtn, self.qopParamsBox, self.chooseHostLbl]
         #widgets.append(self.launchSMEBtn)
-        widgets.append(self.qopParamsBox)
-        widgets.append(self.chooseHostLbl)
 
         for w in widgets:
             if visible:

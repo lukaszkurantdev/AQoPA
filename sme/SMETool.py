@@ -507,8 +507,7 @@ class ViewFactsDialog(wx.Dialog):
         self.Layout()
 
     def populateFactView(self):
-        somelist = []
-        somelist.append("")
+        somelist = [""]
         for category in Structs.categoryList:
             somelist.append("Category name: "+category.name+" ("+category.description+")")
             for fact in Structs.factList:

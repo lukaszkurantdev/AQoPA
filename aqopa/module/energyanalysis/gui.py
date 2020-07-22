@@ -221,18 +221,9 @@ class SingleVersionPanel(wx.Panel):
 
     def SetVersionsResultsVisibility(self, visible):
         """ """
-        widgets = []
-        widgets.append(self.consumptionsBox)
-        widgets.append(self.operationBox)
-        widgets.append(self.oneECRB)
-        widgets.append(self.avgECRB)
-        widgets.append(self.minECRB)
-        widgets.append(self.maxECRB)
-        widgets.append(self.hostsBox)
-        widgets.append(self.showConsumptionBtn)
-        widgets.append(self.voltageLabel)
-        widgets.append(self.voltageInput)
-        
+        widgets = [self.consumptionsBox, self.operationBox, self.oneECRB, self.avgECRB, self.minECRB, self.maxECRB,
+                   self.hostsBox, self.showConsumptionBtn, self.voltageLabel, self.voltageInput]
+
         for w in widgets:
             if visible:
                 w.Show()

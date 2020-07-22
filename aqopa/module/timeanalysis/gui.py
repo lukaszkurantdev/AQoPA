@@ -236,18 +236,9 @@ class SingleVersionPanel(wx.Panel):
 
     def SetVersionsResultsVisibility(self, visible):
         """ """
-        widgets = []
-        widgets.append(self.timesBox)
-        widgets.append(self.totalTimeBox)
-        widgets.append(self.totalTimeLabel)
-        widgets.append(self.operationBox)
-        widgets.append(self.oneTimeRB)
-        widgets.append(self.avgTimeRB)
-        widgets.append(self.minTimeRB)
-        widgets.append(self.maxTimeRB)
-        widgets.append(self.hostsBox)
-        widgets.append(self.showTimeBtn)
-        
+        widgets = [self.timesBox, self.totalTimeBox, self.totalTimeLabel, self.operationBox, self.oneTimeRB,
+                   self.avgTimeRB, self.minTimeRB, self.maxTimeRB, self.hostsBox, self.showTimeBtn]
+
         for w in widgets:
             if visible:
                 w.Show()
