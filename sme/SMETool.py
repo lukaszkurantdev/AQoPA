@@ -2183,7 +2183,7 @@ class EvaluateAllCasesDialog(wx.Dialog):
             self.grid_1.SetColLabelValue(iter, key)
             self.grid_1.SetCellValue(iterator, iter, str(value))
             iter = iter+1
-            if self.minsecattdict[key]>=value and value!=0:
+            if self.minsecattdict[key] >= value != 0:
                 self.minsecattdict[key] = value
             if self.maxsecattdict[key]<=value:
                 self.maxsecattdict[key] = value

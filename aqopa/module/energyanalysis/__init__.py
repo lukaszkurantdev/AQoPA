@@ -213,7 +213,7 @@ class Module(module.Module):
                     # overlapping
                     # |---10--|
                     #       |--X--|
-                    if t[0] < current_time_to and t[1] > current_time_to:
+                    if t[0] < current_time_to < t[1]:
 
                         # Add left |---10|
                         if t[0] > current_time_from:
