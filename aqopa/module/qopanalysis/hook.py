@@ -1,11 +1,9 @@
 #!/usr/bin/env python
 
-from .qop_param import QoPParameter
+from aqopa.model import AssignmentInstruction, \
+    CallFunctionInstruction, IfInstruction, WhileInstruction, \
+    CallFunctionExpression, TupleExpression, ComparisonExpression
 from aqopa.simulator.state import Hook, ExecutionResult
-from aqopa.model import AssignmentInstruction,\
-    CallFunctionInstruction, IfInstruction, WhileInstruction,\
-    CommunicationInstruction, CallFunctionExpression, TupleExpression, ComparisonExpression, \
-    IdentifierExpression
 
 """
 @file       hook.py

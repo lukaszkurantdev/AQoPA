@@ -2,15 +2,14 @@
 
 import os
 import re
+
 import wx
 import wx.animate
-import wx.lib.scrolledpanel as scrolled
 import wx.lib.delayedresult
+import wx.lib.scrolledpanel as scrolled
 
-from aqopa.model import name_indexes
-from aqopa.bin import gui as aqopa_gui
-from aqopa.simulator.error import RuntimeException
 from aqopa.gui.general_purpose_frame_gui import GeneralFrame
+from aqopa.model import name_indexes
 
 """
 @file       gui.py

@@ -3,10 +3,9 @@ Created on 22-04-2013
 
 @author: Damian Rusinek <damian.rusinek@gmail.com>
 '''
-from aqopa.model.parser import ConfigurationParserException
-from aqopa.model.parser.lex_yacc import LexYaccParserExtension
 from aqopa.model import Version, VersionRunProcess, VersionRunHost, \
     MetricsSet
+from aqopa.model.parser.lex_yacc import LexYaccParserExtension
 
 set_items = []
 

@@ -7,6 +7,7 @@ import sys
 
 from aqopa.simulator.state import Hook
 
+
 class PrintResultsHook(Hook):
 
     def __init__(self, module, simulator, output_file=sys.stdout):
@@ -14,20 +15,20 @@ class PrintResultsHook(Hook):
         self.module = module
         self.simulator = simulator
         self.output_file = output_file
-        
+
     def execute(self, context, **kwargs):
         """ """
 
-        self.output_file.write('-'*80)
+        self.output_file.write('-' * 80)
         self.output_file.write('\n')
         self.output_file.write('Module\tTime Analysis (time in s)')
         self.output_file.write('\n')
         self.output_file.write('Version\t%s\n\n' % self.simulator.context.version.name)
-        
+
         if self.simulator.infinite_loop_occurred():
             self.output_file.write('ERROR\tInfinite loop on {0} -> {1}\n'.format(
-                                unicode(self.simulator.context.get_current_host()),
-                                unicode(self.simulator.context.get_current_instruction())))
+                unicode(self.simulator.context.get_current_host()),
+                unicode(self.simulator.context.get_current_instruction())))
             self.output_file.write('\n')
 
         for h in context.hosts:
@@ -37,10 +38,10 @@ class PrintResultsHook(Hook):
                 if h.get_finish_error():
                     self.output_file.write(' with error\t{0}'.format(h.get_finish_error()))
             else:
-                self.output_file.write('NOT Finished\t{0}'.format(unicode(h.get_current_instructions_context()\
-                                                                .get_current_instruction())))
+                self.output_file.write('NOT Finished\t{0}'.format(unicode(h.get_current_instructions_context() \
+                                                                          .get_current_instruction())))
             self.output_file.write("\n")
-            
+
         self.output_file.write('\n')
         self.output_file.write('Dropped messages\n')
         i = 0

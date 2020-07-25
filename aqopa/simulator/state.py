@@ -8,7 +8,7 @@ from aqopa.model import BooleanExpression, IdentifierExpression,\
     AssignmentInstruction, CommunicationInstruction, FinishInstruction,\
     ContinueInstruction, CallFunctionInstruction, IfInstruction,\
     WhileInstruction, HostSubprocess, COMMUNICATION_TYPE_OUT,\
-    original_name, name_indexes, BreakInstruction
+    original_name, BreakInstruction
 
 from aqopa.simulator.error import RuntimeException
 

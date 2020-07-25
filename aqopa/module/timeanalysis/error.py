@@ -5,6 +5,7 @@ Created on 01-06-2013
 '''
 from aqopa.simulator.error import RuntimeException
 
+
 class TimeSynchronizationException(RuntimeException):
     """
     Error occurs when the current times of hosts are not synchronized
@@ -13,4 +14,3 @@ class TimeSynchronizationException(RuntimeException):
     host B is already in time t2 > t1.
     """
     pass
-    

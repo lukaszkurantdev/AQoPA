@@ -4,26 +4,22 @@ Created on 07-05-2013
 @author: Damian Rusinek <damian.rusinek@gmail.com>
 '''
 
-import wx
-import wx.lib.newevent
-import threading
-from aqopa.model.parser import ParserException, ModelParserException,\
+from aqopa.model import HostProcess, original_name, \
+    HostSubprocess, WhileInstruction, IfInstruction
+from aqopa.model.parser import ModelParserException, \
     MetricsParserException, ConfigurationParserException
 from aqopa.model.parser.lex_yacc.grammar import algorithms
 from aqopa.model.store import QoPMLModelStore
-from aqopa.model import HostProcess, name_indexes, original_name,\
-    HostSubprocess, WhileInstruction, IfInstruction
-from aqopa.simulator import Simulator,\
+from aqopa.simulator import Simulator, \
     expression, state, equation, metrics, communication, scheduler, predefined, algorithm
-
-from aqopa.simulator.state import Executor,\
-    AssignmentInstructionExecutor, IfInstructionExecutor,\
-    ProcessInstructionExecutor, SubprocessInstructionExecutor,\
-    FinishInstructionExecutor, CommunicationInstructionExecutor,\
-    ContinueInstructionExecutor, WhileInstructionExecutor, Host, Process,\
+from aqopa.simulator.error import EnvironmentDefinitionException
+from aqopa.simulator.state import Executor, \
+    AssignmentInstructionExecutor, IfInstructionExecutor, \
+    ProcessInstructionExecutor, SubprocessInstructionExecutor, \
+    FinishInstructionExecutor, CommunicationInstructionExecutor, \
+    ContinueInstructionExecutor, WhileInstructionExecutor, Host, Process, \
     CallFunctionInstructionExecutor, PrintExecutor, BreakInstructionExecutor
 
-from aqopa.simulator.error import EnvironmentDefinitionException
 
 class Builder():
     """

@@ -3,15 +3,15 @@ Created on 31-05-2013
 
 @author: Damian Rusinek <damian.rusinek@gmail.com>
 '''
-from math import ceil
 import random
-from aqopa.simulator.state import Hook, ExecutionResult
-from aqopa.model import AssignmentInstruction,\
-    CallFunctionInstruction, IfInstruction, WhileInstruction,\
-    CommunicationInstruction, CallFunctionExpression, TupleExpression, ComparisonExpression, COMMUNICATION_TYPE_OUT, \
-    COMMUNICATION_TYPE_IN
-from aqopa.module.timeanalysis.error import TimeSynchronizationException
+from math import ceil
+
+from aqopa.model import AssignmentInstruction, \
+    CallFunctionInstruction, IfInstruction, WhileInstruction, \
+    CommunicationInstruction, CallFunctionExpression, TupleExpression, ComparisonExpression
 from aqopa.simulator.error import RuntimeException
+from aqopa.simulator.state import Hook, ExecutionResult
+
 
 class PreInstructionHook(Hook):
     """

@@ -3,7 +3,6 @@ Created on 14-05-2013
 
 @author: Damian Rusinek <damian.rusinek@gmail.com>
 '''
-from wx.lib.agw.aui.aui_constants import right
 from aqopa.model import CallFunctionExpression, IdentifierExpression,\
     BooleanExpression
 from aqopa.simulator.error import EnvironmentDefinitionException

@@ -3,9 +3,7 @@ Created on 07-05-2013
 
 @author: Damian Rusinek <damian.rusinek@gmail.com>
 '''
-import copy
-from aqopa.model import CommunicationInstruction, TupleExpression, ComparisonExpression, COMPARISON_TYPE_EQUAL, \
-    CallFunctionExpression, AlgWhile, AlgReturn, AlgIf, AlgAssignment, AlgCallFunction
+from aqopa.model import CommunicationInstruction, TupleExpression, ComparisonExpression, COMPARISON_TYPE_EQUAL
 from aqopa.simulator.error import RuntimeException
 from aqopa.simulator.state import HookExecutor, ExecutionResult
 

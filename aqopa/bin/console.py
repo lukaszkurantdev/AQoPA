@@ -4,16 +4,15 @@ Created on 22-04-2013
 
 @author: Damian Rusinek <damian.rusinek@gmail.com>
 '''
-import os
 import sys
 import threading
 import time
 
-from aqopa.model.parser import ModelParserException,\
-    MetricsParserException, ConfigurationParserException
 from aqopa.app import Builder, ConsoleInterpreter
-from aqopa.simulator import EnvironmentDefinitionException
+from aqopa.model.parser import ModelParserException, \
+    MetricsParserException, ConfigurationParserException
 from aqopa.module import timeanalysis, energyanalysis, reputation, financialanalysis, greenanalysis, qopanalysis
+from aqopa.simulator import EnvironmentDefinitionException
 from aqopa.simulator.error import RuntimeException
 
 

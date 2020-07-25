@@ -3,11 +3,10 @@ Created on 22-04-2013
 
 @author: Damian Rusinek <damian.rusinek@gmail.com>
 '''
-from aqopa.model.parser import ParserWarning, MetricsParserException
-from aqopa.model.parser.lex_yacc import LexYaccParserExtension
 from aqopa.model import MetricsConfiguration, MetricsData, \
     MetricsPrimitiveBlock, MetricsPrimitiveHeader, MetricsPrimitive, \
     MetricsServiceParam
+from aqopa.model.parser.lex_yacc import LexYaccParserExtension
 
 isMissingFunc = False
 
@@ -306,7 +305,6 @@ class MetricsParserExtension(LexYaccParserExtension):
                                 | metrics_primitive_arguments metrics_primitive_argument
         """
         global isMissingFunc
-        import os
         if len(t) == 2:
             t[0] = []
             t[0].append(t[1])

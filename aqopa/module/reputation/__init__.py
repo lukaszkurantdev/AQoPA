@@ -1,11 +1,12 @@
 from copy import copy, deepcopy
+
 from aqopa import module
 from aqopa.module.reputation.hook import PreInstructionHook
 from aqopa.simulator.state import HOOK_TYPE_SIMULATION_FINISHED, HOOK_TYPE_PRE_INSTRUCTION_EXECUTION
-from aqopa.model import CallFunctionExpression
-from .parser import MetricsParserExtension, ModelParserExtension
-from .gui import ModuleGui
 from .console import PrintResultsHook
+from .gui import ModuleGui
+from .parser import MetricsParserExtension, ModelParserExtension
+
 
 class Module(module.Module):
     """

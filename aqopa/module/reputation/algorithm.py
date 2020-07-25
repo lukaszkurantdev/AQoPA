@@ -5,7 +5,6 @@ Created on 27-12-2013
 '''
 from aqopa.model import IfInstruction, WhileInstruction, AssignmentInstruction
 from aqopa.model.parser.lex_yacc import LexYaccParser, LexYaccParserExtension
-from aqopa.simulator.state import Process
 
 
 class ComputationalParserExtension(LexYaccParserExtension):

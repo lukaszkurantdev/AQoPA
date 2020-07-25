@@ -15,8 +15,8 @@ class Builder():
     
     def build_channels(self, token):
         """
-        channel : CHANNEL identifiers_list LPARAN channel_buffor RPARAN SEMICOLON
-            | CHANNEL identifiers_list LPARAN channel_buffor RPARAN SQLPARAN IDENTIFIER SQRPARAN SEMICOLON
+        channel : CHANNEL identifiers_list LPARAN channel_buffer RPARAN SEMICOLON
+            | CHANNEL identifiers_list LPARAN channel_buffer RPARAN SQLPARAN IDENTIFIER SQRPARAN SEMICOLON
         """
         tag_name = token[7] if len(token) == 10 else None
         channels = []
@@ -77,15 +77,15 @@ class ModelParserExtension(LexYaccParserExtension):
     
     def channel(self, t):
         """
-        channel : CHANNEL identifiers_list LPARAN channel_buffor RPARAN SEMICOLON
-            | CHANNEL identifiers_list LPARAN channel_buffor RPARAN SQLPARAN IDENTIFIER SQRPARAN SEMICOLON
+        channel : CHANNEL identifiers_list LPARAN channel_buffer RPARAN SEMICOLON
+            | CHANNEL identifiers_list LPARAN channel_buffer RPARAN SQLPARAN IDENTIFIER SQRPARAN SEMICOLON
         """
         for ch in self.builder.build_channels(t):
             self.parser.store.channels.append(ch)
     
-    def channel_buffor(self, t):
+    def channel_buffer(self, t):
         """
-        channel_buffor : STAR
+        channel_buffer : STAR
             | INTEGER
         """
         t[0] = t[1]
@@ -102,7 +102,7 @@ class ModelParserExtension(LexYaccParserExtension):
         self.parser.add_rule(self.channels_specification)
         self.parser.add_rule(self.channels_list)
         self.parser.add_rule(self.channel)
-        self.parser.add_rule(self.channel_buffor)
+        self.parser.add_rule(self.channel_buffer)
         
 
     

@@ -1,11 +1,11 @@
 from aqopa import module
+from aqopa.model import CallFunctionExpression
 from aqopa.module.energyanalysis.console import PrintResultsHook
+from aqopa.module.energyanalysis.parser import MetricsParserExtension, ConfigParserExtension, ModelParserExtension
 from aqopa.simulator.error import RuntimeException
 from aqopa.simulator.state import HOOK_TYPE_SIMULATION_FINISHED
 from .gui import ModuleGui
-from aqopa.module.energyanalysis.parser import MetricsParserExtension, ConfigParserExtension, ModelParserExtension
-from aqopa.model import WhileInstruction, AssignmentInstruction,\
-    CallFunctionInstruction, CallFunctionExpression, IfInstruction
+
 
 class Module(module.Module):
     """

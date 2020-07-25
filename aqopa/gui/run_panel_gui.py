@@ -1,14 +1,15 @@
 #!/usr/bin/env python
 
-import wx
 import sys
 import time
 import traceback
 
+import wx
+
 # AQoPA imports
 from aqopa import app
 from aqopa.model.parser import MetricsParserException, \
-    ConfigurationParserException, ModelParserException, ParserWarning
+    ConfigurationParserException, ModelParserException
 from aqopa.simulator.error import EnvironmentDefinitionException, \
     RuntimeException
 

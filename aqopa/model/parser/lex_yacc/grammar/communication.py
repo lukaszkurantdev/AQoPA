@@ -4,9 +4,8 @@ Created on 22-04-2013
 @author: Damian Rusinek <damian.rusinek@gmail.com>
 '''
 
+from aqopa.model import TopologyRuleHost, TopologyRule
 from aqopa.model.parser.lex_yacc import LexYaccParserExtension
-from aqopa.model import Channel, TopologyRuleHost, TopologyRule,\
-    AlgWhile, AlgCallFunction, AlgIf, AlgReturn, AlgAssignment
 
 
 class Builder():

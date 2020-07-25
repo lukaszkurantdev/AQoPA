@@ -55,7 +55,7 @@ class Builder():
 
     def build_comparison_expression(self, token):
         """
-        expression_comaprison : expression_simple EQUAL EQUAL expression_simple
+        expression_comparison : expression_simple EQUAL EQUAL expression_simple
                             | expression_simple EXCLAMATION EQUAL expression_simple
         """
         comparison_type = COMPARISON_TYPE_EQUAL if token[2] == '=' else COMPARISON_TYPE_NOT_EQUAL
@@ -85,7 +85,7 @@ class ModelParserExtension(LexYaccParserExtension):
     
     def expression_conditional(self, t):
         """
-        expression_conditional : expression_comaprison
+        expression_conditional : expression_comparison
                         | BOOL
         """
         if isinstance(t[1], bool):
@@ -183,9 +183,9 @@ class ModelParserExtension(LexYaccParserExtension):
         else:
             t[0] = t[1]
     
-    def expression_comaprison(self, t):
+    def expression_comparison(self, t):
         """
-        expression_comaprison : expression_simple EQUAL EQUAL expression_simple
+        expression_comparison : expression_simple EQUAL EQUAL expression_simple
                             | expression_simple EXCLAMATION EQUAL expression_simple
         """
         t[0] = self.builder.build_comparison_expression(t)
@@ -205,7 +205,7 @@ class ModelParserExtension(LexYaccParserExtension):
         self.parser.add_rule(self.expression_call_routing_next_argument)
         self.parser.add_rule(self.expression_function_qop_arguments)
         self.parser.add_rule(self.expression_simple)
-        self.parser.add_rule(self.expression_comaprison)
+        self.parser.add_rule(self.expression_comparison)
         
 
     

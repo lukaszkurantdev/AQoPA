@@ -1,9 +1,9 @@
 #!/usr/bin/env python
   
-import Structs
 import pickle
-import wx
-  
+
+import Structs
+
 
 #Read from and write to a file
   

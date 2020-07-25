@@ -3,15 +3,13 @@ Created on 27-12-2013
 
 @author: Damian Rusinek <damian.rusinek@gmail.com>
 '''
-from math import ceil
-import random
+from aqopa.model import AssignmentInstruction, \
+    CallFunctionInstruction, IfInstruction, WhileInstruction, \
+    CallFunctionExpression, TupleExpression, ComparisonExpression
 from aqopa.module.reputation.algorithm import update_vars
-from aqopa.simulator.state import Hook, ExecutionResult
-from aqopa.model import AssignmentInstruction,\
-    CallFunctionInstruction, IfInstruction, WhileInstruction,\
-    CommunicationInstruction, CallFunctionExpression, TupleExpression, ComparisonExpression
-from aqopa.module.timeanalysis.error import TimeSynchronizationException
 from aqopa.simulator.error import RuntimeException
+from aqopa.simulator.state import Hook, ExecutionResult
+
 
 class PreInstructionHook(Hook):
     """
